@@ -11,20 +11,21 @@ fn sort<T: std::cmp::PartialOrd>(array: &mut [T]) {
     }
     let pivot_index = partition(array);
     sort(&mut array[0..pivot_index]);
-    sort(&mut array[pivot_index + 1..]);
+    sort(&mut array[pivot_index..]);
 }
 
 fn partition<T: std::cmp::PartialOrd>(array: &mut [T]) -> usize {
     let pivot_index = array.len() / 2;
-    array.swap(pivot_index, array.len() - 1);
+    let last_index = array.len() - 1;
+    array.swap(pivot_index, last_index);
     let mut i = 0;
-    for j in 0..array.len() - 1 {
-        if array[j] <= array[array.len() - 1] {
+    for j in 0..last_index {
+        if array[j] <= array[last_index] {
             array.swap(i, j);
             i += 1;
         }
     }
-    array.swap(i, array.len() - 1);
+    array.swap(i, last_index);
     i
 }
 
